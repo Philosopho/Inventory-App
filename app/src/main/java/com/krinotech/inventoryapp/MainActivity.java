@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
                     .append(
                             "\n\n" + getString(
                             R.string.the_number_of_rows_in_the_database_1_s,
-                            String.valueOf(cursor.getColumnCount())
+                            String.valueOf(cursor.getCount())
                             )
                     );
 
