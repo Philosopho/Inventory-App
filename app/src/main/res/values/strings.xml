@@ -1,6 +1,14 @@
 <resources>
     <string name="app_name">Inventory App</string>
-    <string name="the_number_of_rows_in_the_database_1_s">The number of rows in the database: %1$s</string>
-    <string name="column_values">Value: %1$s</string>
-    <string name="column_names">The Column Names:\n</string>
+    <string name="product_name">Product Name</string>
+    <string name="price">Price</string>
+    <string name="quantity">Quantity</string>
+    <string name="supplier_name">Supplier Name</string>
+    <string name="supplier_phone_number">Supplier Contact</string>
+    <string name="save">Save</string>
+    <string name="not_valid_insert">Product name, price, or quantity must not be blank.</string>
+    <string name="insert_success">Product information inserted successfully!</string>
+    <string name="editor_activity_title">Editor</string>
+    <string name="no_information">N/A</string>
+    <string name="out_of_stock">Out of stock</string>
 </resources>
