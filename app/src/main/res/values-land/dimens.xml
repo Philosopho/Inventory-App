@@ -3,8 +3,11 @@
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="header_padding">16dp</dimen>
     <dimen name="margin">8dp</dimen>
+    <dimen name="buttonTextSize">16sp</dimen>
     <dimen name="dividerMargin">16dp</dimen>
     <dimen name="productNameMarginTopDetails">16dp</dimen>
     <dimen name="supplierContactMargin">16dp</dimen>
     <dimen name="supplierNameMargin">16dp</dimen>
+    <dimen name="textSizeHeader">22sp</dimen>
+    <dimen name="marginEditText">8dp</dimen>
 </resources>

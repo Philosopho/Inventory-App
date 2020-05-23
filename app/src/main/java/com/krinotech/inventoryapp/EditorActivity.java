@@ -10,7 +10,6 @@ import androidx.databinding.DataBindingUtil;
 import android.content.DialogInterface;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -19,6 +18,7 @@ import com.krinotech.inventoryapp.databinding.ActivityEditorBinding;
 
 public class EditorActivity extends AppCompatActivity {
     private ActivityEditorBinding binding;
+    private long editingId = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,8 +30,19 @@ public class EditorActivity extends AppCompatActivity {
         if(actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
-
+        Inventory inventory = getIntent().getParcelableExtra(getString(R.string.inventory_extra));
         checkSavedInstanceState(savedInstanceState);
+        if(inventory != null) {
+
+            editingId = inventory.getId();
+            String productName = inventory.getProductName();
+            String priceS = String.valueOf(inventory.getPrice());
+            String quantityS = inventory.getQuantityFormatted();
+            String supplierName = inventory.getSupplierName();
+            String supplierPhoneNumber = inventory.getSupplierPhoneNumber();
+
+            bindData(productName, priceS, quantityS, supplierName, supplierPhoneNumber);
+        }
 
 
         setTitle(getString(R.string.editor_activity_title));
@@ -56,6 +67,7 @@ public class EditorActivity extends AppCompatActivity {
         outState.putString(getString(R.string.quantity_extra), quantityS);
         outState.putString(getString(R.string.supplier_extra), supplierName);
         outState.putString(getString(R.string.supplier_contact_extra), supplierPhoneNumber);
+        outState.putLong(getString(R.string.editing_id_extra), editingId);
         super.onSaveInstanceState(outState);
     }
 
@@ -64,27 +76,7 @@ public class EditorActivity extends AppCompatActivity {
         int menuItemId = item.getItemId();
 
         if (menuItemId == R.id.save) {
-            String productName = binding.etProductName.getText().toString().trim();
-            String priceS = binding.etPrice.getText().toString().trim();
-            String quantityS = binding.etQuantity.getText().toString().trim();
-            String supplierName = binding.etSupplierName.getText().toString().trim();
-            String supplierPhoneNumber = binding.etSupplierPhoneNumber.getText().toString().trim();
-
-            if(notValid(productName, priceS, quantityS, supplierName, supplierPhoneNumber)) {
-                Toast.makeText(this, R.string.not_valid_insert, Toast.LENGTH_SHORT).show();
-            }
-            else {
-                double price = Double.parseDouble(priceS);
-                int quantity = Integer.parseInt(quantityS);
-
-                long newId = insertData(productName, price, quantity, supplierName, supplierPhoneNumber);
-                if(newId == -1) {
-                    Toast.makeText(this, R.string.unsuccessful_insert, Toast.LENGTH_SHORT).show();
-                }
-                else {
-                    Toast.makeText(this, R.string.insert_success, Toast.LENGTH_SHORT).show();
-                }
-            }
+            saveChanges();
         }
         else if(menuItemId == R.id.deleteAll) {
             promptChoice();
@@ -93,6 +85,43 @@ public class EditorActivity extends AppCompatActivity {
             NavUtils.navigateUpFromSameTask(this);
         }
         return true;
+    }
+
+    private void saveChanges() {
+        String productName = binding.etProductName.getText().toString().trim();
+        String priceS = binding.etPrice.getText().toString().trim();
+        String quantityS = binding.etQuantity.getText().toString().trim();
+        String supplierName = binding.etSupplierName.getText().toString().trim();
+        String supplierPhoneNumber = binding.etSupplierPhoneNumber.getText().toString().trim();
+
+        if(notValid(productName, priceS, quantityS, supplierName, supplierPhoneNumber)) {
+            Toast.makeText(this, R.string.not_valid_insert, Toast.LENGTH_SHORT).show();
+        }
+        else {
+            double price = Double.parseDouble(priceS);
+            int quantity = Integer.parseInt(quantityS);
+
+            if(editingId != -1) {
+                long rowsAffected = updateData(editingId, productName, price, quantity, supplierName, supplierPhoneNumber);
+
+                if(rowsAffected <= 0) {
+                    Toast.makeText(this, R.string.update_failure, Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    Toast.makeText(this, R.string.update_success, Toast.LENGTH_SHORT).show();
+                }
+            }
+            else {
+                long newId = insertData(productName, price, quantity, supplierName, supplierPhoneNumber);
+
+                if(newId == -1) {
+                    Toast.makeText(this, R.string.unsuccessful_insert, Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    Toast.makeText(this, R.string.insert_success, Toast.LENGTH_SHORT).show();
+                }
+            }
+        }
     }
 
     private void promptChoice() {
@@ -117,18 +146,23 @@ public class EditorActivity extends AppCompatActivity {
 
     private void checkSavedInstanceState(Bundle savedInstanceState) {
         if(savedInstanceState != null) {
+            editingId = savedInstanceState.getLong(getString(R.string.editing_id_extra));
             String productName = savedInstanceState.getString(getString(R.string.product_name_extra));
             String price = savedInstanceState.getString(getString(R.string.price_extra));
             String quantity = savedInstanceState.getString(getString(R.string.quantity_extra));
             String supplier = savedInstanceState.getString(getString(R.string.supplier_extra));
             String contact = savedInstanceState.getString(getString(R.string.supplier_contact_extra));
 
-            binding.etProductName.setText(productName);
-            binding.etPrice.setText(price);
-            binding.etQuantity.setText(quantity);
-            binding.etSupplierName.setText(supplier);
-            binding.etSupplierPhoneNumber.setText(contact);
+            bindData(productName, price, quantity, supplier, contact);
         }
+    }
+
+    private void bindData(String productName, String price, String quantity, String supplier, String contact) {
+        binding.etProductName.setText(productName);
+        binding.etPrice.setText(price);
+        binding.etQuantity.setText(quantity);
+        binding.etSupplierName.setText(supplier);
+        binding.etSupplierPhoneNumber.setText(contact);
     }
 
     private boolean notValid(String productName, String price, String quantity, String supplier, String supplierContact) {
@@ -146,6 +180,19 @@ public class EditorActivity extends AppCompatActivity {
         SQLiteDatabase writeableDb = inventoryHelper.getWritableDatabase();
         return inventoryHelper.insert(
                 writeableDb, productName, price,
+                quantity, supplierName, supplierContact
+        );
+    }
+
+    private long updateData(long id, String productName,
+                            double price,
+                            int quantity,
+                            String supplierName,
+                            String supplierContact) {
+
+        InventorySQLiteOpenHelper inventoryHelper = new InventorySQLiteOpenHelper(this);
+        SQLiteDatabase writeableDb = inventoryHelper.getWritableDatabase();
+        return inventoryHelper.update(writeableDb, id, productName, price,
                 quantity, supplierName, supplierContact
         );
     }

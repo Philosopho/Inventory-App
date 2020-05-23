@@ -103,4 +103,21 @@ public class InventorySQLiteOpenHelper extends SQLiteOpenHelper {
             writeableDb.close();
         }
     }
+
+    public long update(SQLiteDatabase writeableDb, long id, String productName, double price, int quantity, String supplierName, String supplierContact) {
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(PRODUCT_NAME, productName);
+        contentValues.put(PRICE, price);
+        contentValues.put(QUANTITY, quantity);
+        contentValues.put(SUPPLIER_NAME, supplierName);
+        contentValues.put(SUPPLIER_PHONE_NUMBER, supplierContact);
+        String selection = _ID + " = ?";
+        String[] whereClause = {String.valueOf(id)};
+        try {
+            return writeableDb.update(TABLE_NAME, contentValues, selection, whereClause);
+        }
+        finally {
+            writeableDb.close();
+        }
+    }
 }

@@ -17,7 +17,7 @@
         <item name="android:layout_marginBottom">@dimen/margin</item>
         <item name="android:layout_marginStart">@dimen/margin</item>
         <item name="android:layout_marginEnd">@dimen/margin</item>
-        <item name="android:textAppearance">?android:textAppearanceMedium</item>
+        <item name="android:textSize">@dimen/textSizeHeader</item>
     </style>
 
     <style name="productContent">
@@ -36,11 +36,12 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:fontFamily">sans-serif-light</item>
         <item name="android:layout_marginBottom">@dimen/margin</item>
+        <item name="android:layout_marginTop">@dimen/marginEditText</item>
         <item name="android:textAppearance">?android:textAppearanceLarge</item>
     </style>
 
     <style name="button">
-        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_margin">@dimen/margin</item>
         <item name="android:background">@color/colorAccent</item>
@@ -48,5 +49,4 @@
         <item name="android:foreground">?attr/selectableItemBackground</item>
         <item name="android:clickable">true</item>
     </style>
-
 </resources>

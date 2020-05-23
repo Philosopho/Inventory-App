@@ -32,4 +32,8 @@
     <string name="supplier_extra">Supplier_Extra</string>
     <string name="supplier_contact_extra">Supplier_Contact_Extra</string>
     <string name="instructions_to_add">Add a product by clicking on the button below! Enter the details of the product on the next screen and save it with the heart button on top.</string>
+    <string name="edit">Edit</string>
+    <string name="editing_id_extra">EDITING_EXTRA</string>
+    <string name="update_failure">Could not update inventory.</string>
+    <string name="update_success">Update successful!</string>
 </resources>

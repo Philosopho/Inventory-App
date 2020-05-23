@@ -14,7 +14,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/et_productName"
         app:layout_constraintHorizontal_chainStyle="packed"
-        app:layout_constraintHorizontal_weight="3"
+        app:layout_constraintHorizontal_weight="2"
         style="@style/header" />
 
     <TextView
@@ -25,7 +25,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/et_price"
         app:layout_constraintHorizontal_chainStyle="packed"
-        app:layout_constraintHorizontal_weight="3"
+        app:layout_constraintHorizontal_weight="2"
         style="@style/header" />
 
     <TextView
@@ -36,7 +36,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/et_quantity"
         app:layout_constraintHorizontal_chainStyle="packed"
-        app:layout_constraintHorizontal_weight="3"
+        app:layout_constraintHorizontal_weight="2"
         style="@style/header" />
 
     <TextView
@@ -47,7 +47,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/et_supplierName"
         app:layout_constraintHorizontal_chainStyle="packed"
-        app:layout_constraintHorizontal_weight="3"
+        app:layout_constraintHorizontal_weight="2"
         style="@style/header" />
 
     <TextView
@@ -58,6 +58,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/et_supplierPhoneNumber"
         app:layout_constraintHorizontal_chainStyle="packed"
-        app:layout_constraintHorizontal_weight="3"
+        app:layout_constraintHorizontal_weight="2"
         style="@style/header" />
 </merge>

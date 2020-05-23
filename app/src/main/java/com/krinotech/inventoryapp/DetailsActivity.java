@@ -17,7 +17,6 @@ import com.krinotech.inventoryapp.databinding.ActivityDetailsBinding;
 
 public class DetailsActivity extends AppCompatActivity {
     private ActivityDetailsBinding binding;
-    private boolean notDeleted = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,9 +27,6 @@ public class DetailsActivity extends AppCompatActivity {
 
         if(actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
-        }
-        if(savedInstanceState != null) {
-            notDeleted = savedInstanceState.getBoolean(getString(R.string.detailes_deleted_extra));
         }
         Inventory inventory = getIntent().getParcelableExtra(getString(R.string.inventory_extra));
 
@@ -45,6 +41,19 @@ public class DetailsActivity extends AppCompatActivity {
         binding.decreaseQuantity.setOnClickListener(decreaseQuantity(inventory));
         binding.delete.setOnClickListener(delete(inventory));
         binding.call.setOnClickListener(call(inventory));
+        binding.edit.setOnClickListener(edit(inventory));
+    }
+
+    private View.OnClickListener edit(final Inventory inventory) {
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(DetailsActivity.this, EditorActivity.class);
+                intent.putExtra(getString(R.string.inventory_extra), inventory);
+
+                startActivity(intent);
+            }
+        };
     }
 
     private View.OnClickListener call(final Inventory inventory) {
@@ -62,26 +71,19 @@ public class DetailsActivity extends AppCompatActivity {
         return new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(notDeleted) {
-                    InventorySQLiteOpenHelper helper = new InventorySQLiteOpenHelper(DetailsActivity.this);
-                    SQLiteDatabase database = helper.getWritableDatabase();
-                    int rowsAffected = helper.delete(database, inventory.getId());
-                    if(rowsAffected >= 1) {
-                        Toast.makeText(DetailsActivity.this, R.string.successful_deletion, Toast.LENGTH_SHORT).show();
-                        notDeleted = false;
-                    }
+                InventorySQLiteOpenHelper helper = new InventorySQLiteOpenHelper(DetailsActivity.this);
+                SQLiteDatabase database = helper.getWritableDatabase();
+                int rowsAffected = helper.delete(database, inventory.getId());
+                if(rowsAffected >= 1) {
+                    Toast.makeText(DetailsActivity.this, R.string.successful_deletion, Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(DetailsActivity.this, MainActivity.class);
+                    startActivity(intent);
                 }
                 else {
                     Toast.makeText(DetailsActivity.this, R.string.already_deleted, Toast.LENGTH_SHORT).show();
                 }
             }
         };
-    }
-
-    @Override
-    public void onSaveInstanceState(@NonNull Bundle outState) {
-        outState.putBoolean(getString(R.string.detailes_deleted_extra), notDeleted);
-        super.onSaveInstanceState(outState);
     }
 
     private View.OnClickListener increaseQuantity(final Inventory inventory) {
