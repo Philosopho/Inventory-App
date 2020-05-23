@@ -81,6 +81,7 @@
                 app:layout_constraintTop_toBottomOf="@id/tv_priceHeader"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/tv_quantity"
+                app:layout_constraintBottom_toTopOf="@id/btn_sale"
                 app:layout_constraintHorizontal_chainStyle="packed"
                 app:layout_constraintHorizontal_weight="1"
                 style="@style/productContent"
@@ -94,60 +95,33 @@
                 app:layout_constraintTop_toBottomOf="@id/tv_quantityHeader"
                 app:layout_constraintStart_toEndOf="@id/tv_price"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/btn_details"
                 app:layout_constraintHorizontal_chainStyle="packed"
                 app:layout_constraintHorizontal_weight="1"
                 style="@style/productContent"
                 tools:text="5"
                 />
 
-            <TextView
-                android:id="@+id/tv_supplierNameHeader"
-                android:text="@string/supplier_name"
-                android:gravity="center"
-                app:layout_constraintTop_toBottomOf="@id/tv_price"
+            <Button
+                android:id="@+id/btn_sale"
+                android:layout_margin="@dimen/margin"
+                android:text="@string/sale"
+                style="@style/button"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/tv_supplierContactHeader"
-                app:layout_constraintHorizontal_chainStyle="packed"
-                app:layout_constraintHorizontal_weight="1"
-                style="@style/header"
+                app:layout_constraintEnd_toStartOf="@id/btn_details"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:background="@color/colorAccent"
                 />
 
-            <TextView
-                android:id="@+id/tv_supplierContactHeader"
-                android:text="@string/supplier_phone_number"
-                android:gravity="center"
-                app:layout_constraintTop_toBottomOf="@id/tv_quantity"
-                app:layout_constraintStart_toEndOf="@id/tv_supplierNameHeader"
+            <Button
+                android:id="@+id/btn_details"
+                android:layout_margin="@dimen/margin"
+                android:text="@string/details"
+                style="@style/button"
+                app:layout_constraintStart_toEndOf="@id/btn_sale"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_chainStyle="packed"
-                app:layout_constraintHorizontal_weight="1"
-                style="@style/header"
-                />
-
-            <TextView
-                android:id="@+id/tv_supplierName"
-                android:text="@{inventory.supplierName}"
-                android:gravity="center"
-                app:layout_constraintTop_toBottomOf="@id/tv_supplierNameHeader"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/tv_supplierContact"
-                app:layout_constraintHorizontal_chainStyle="packed"
-                app:layout_constraintHorizontal_weight="1"
-                style="@style/productContent"
-                tools:text="Amazon"
-                />
-
-            <TextView
-                android:id="@+id/tv_supplierContact"
-                android:text="@{inventory.supplierPhoneNumber}"
-                android:gravity="center"
-                app:layout_constraintTop_toBottomOf="@id/tv_supplierContactHeader"
-                app:layout_constraintStart_toEndOf="@id/tv_supplierName"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_chainStyle="packed"
-                app:layout_constraintHorizontal_weight="1"
-                style="@style/productContent"
-                tools:text="(718) 555-5555"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:background="@color/colorAccent"
                 />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

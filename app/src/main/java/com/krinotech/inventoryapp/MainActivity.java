@@ -28,7 +28,6 @@ import static com.krinotech.inventoryapp.InventoryContract.InventoryColumns.TABL
 
 public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
-    private InventoryAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,11 +77,17 @@ public class MainActivity extends AppCompatActivity {
 
             inventories.add(new Inventory(id, productName, price, quantity, supplierName, supplierContact));
         }
+        if(inventories.isEmpty()) {
+            binding.instructions.setVisibility(View.VISIBLE);
+        }
+        else {
+            binding.instructions.setVisibility(View.GONE);
+        }
         return inventories;
     }
 
     private void setUpAdapter(List<Inventory> inventories) {
-        adapter = new InventoryAdapter(inventories);
+        InventoryAdapter adapter = new InventoryAdapter(inventories);
 
         LinearLayoutManager linearLayoutManager =
                 new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
@@ -90,21 +95,5 @@ public class MainActivity extends AppCompatActivity {
         binding.rvMain.setHasFixedSize(true);
         binding.rvMain.setLayoutManager(linearLayoutManager);
         binding.rvMain.setAdapter(adapter);
-    }
-
-    private String queryColumnValueWithId(SQLiteDatabase database, String columnName, long id) {
-        String value = "";
-        Cursor cursor = database.rawQuery(
-                "SELECT " + columnName + " FROM " + TABLE_NAME + " WHERE " + _ID + " == " + id + ";",
-                null);
-        try{
-            if(!cursor.isFirst()) {
-                cursor.moveToFirst();
-            }
-            value = cursor.getString(cursor.getColumnIndex(columnName));
-            return value;
-        } finally {
-            cursor.close();
-        }
     }
 }

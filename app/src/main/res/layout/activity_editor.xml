@@ -8,17 +8,10 @@
         android:layout_height="match_parent"
         tools:context=".EditorActivity">
 
-        <TextView
-            android:id="@+id/tv_productNameLabel"
-            android:text="@string/product_name"
-            android:labelFor="@id/et_productName"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/et_productName"
-            app:layout_constraintHorizontal_chainStyle="packed"
-            app:layout_constraintHorizontal_weight="3"
-            style="@style/header"
+        <include
+            layout="@layout/labels"
             />
+
         <EditText
             android:id="@+id/et_productName"
             android:inputType="text"
@@ -30,17 +23,6 @@
             style="@style/edit_text"
             />
 
-        <TextView
-            android:id="@+id/tv_priceLabel"
-            android:text="@string/price"
-            android:labelFor="@id/et_price"
-            app:layout_constraintTop_toBottomOf="@id/tv_productNameLabel"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/et_price"
-            app:layout_constraintHorizontal_chainStyle="packed"
-            app:layout_constraintHorizontal_weight="3"
-            style="@style/header"
-            />
         <EditText
             android:id="@+id/et_price"
             android:inputType="numberDecimal"
@@ -52,17 +34,6 @@
             style="@style/edit_text"
             />
 
-        <TextView
-            android:id="@+id/tv_quantityLabel"
-            android:text="@string/quantity"
-            android:labelFor="@id/et_quantity"
-            app:layout_constraintTop_toBottomOf="@id/tv_priceLabel"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/et_quantity"
-            app:layout_constraintHorizontal_chainStyle="packed"
-            app:layout_constraintHorizontal_weight="3"
-            style="@style/header"
-            />
         <EditText
             android:id="@+id/et_quantity"
             android:inputType="number"
@@ -72,18 +43,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_weight="7"
             style="@style/edit_text"
-            />
-
-        <TextView
-            android:id="@+id/tv_supplierNameLabel"
-            android:text="@string/supplier_name"
-            android:labelFor="@id/et_supplierName"
-            app:layout_constraintTop_toBottomOf="@id/tv_quantityLabel"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/et_supplierName"
-            app:layout_constraintHorizontal_chainStyle="packed"
-            app:layout_constraintHorizontal_weight="3"
-            style="@style/header"
             />
 
         <EditText
@@ -98,18 +57,6 @@
             app:layout_constraintStart_toEndOf="@id/tv_supplierNameLabel"
             app:layout_constraintTop_toBottomOf="@id/et_quantity"
             app:layout_constraintVertical_bias="0.47000003" />
-
-        <TextView
-            android:id="@+id/tv_supplierPhoneNumberLabel"
-            android:text="@string/supplier_phone_number"
-            android:labelFor="@id/et_supplierPhoneNumber"
-            app:layout_constraintTop_toBottomOf="@id/tv_supplierNameLabel"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/et_supplierPhoneNumber"
-            app:layout_constraintHorizontal_chainStyle="packed"
-            app:layout_constraintHorizontal_weight="3"
-            style="@style/header"
-            />
 
         <EditText
             android:id="@+id/et_supplierPhoneNumber"

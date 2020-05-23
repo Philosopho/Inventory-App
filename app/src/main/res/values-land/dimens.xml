@@ -2,11 +2,9 @@
 <resources>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="header_padding">16dp</dimen>
-    <dimen name="margin">16dp</dimen>
+    <dimen name="margin">8dp</dimen>
     <dimen name="dividerMargin">16dp</dimen>
-    <dimen name="productNameMarginTopDetails">24dp</dimen>
-    <dimen name="supplierContactMargin">32dp</dimen>
+    <dimen name="productNameMarginTopDetails">16dp</dimen>
+    <dimen name="supplierContactMargin">16dp</dimen>
     <dimen name="supplierNameMargin">16dp</dimen>
-    <dimen name="call_padding">32dp</dimen>
-    <dimen name="instructions_text">32sp</dimen>
 </resources>

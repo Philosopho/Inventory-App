@@ -1,5 +1,6 @@
 package com.krinotech.inventoryapp;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -17,6 +18,7 @@ import static com.krinotech.inventoryapp.InventoryContract.InventoryColumns.PROD
 import static com.krinotech.inventoryapp.InventoryContract.InventoryColumns.QUANTITY;
 import static com.krinotech.inventoryapp.InventoryContract.InventoryColumns.SUPPLIER_NAME;
 import static com.krinotech.inventoryapp.InventoryContract.InventoryColumns.SUPPLIER_PHONE_NUMBER;
+import static com.krinotech.inventoryapp.InventoryContract.InventoryColumns.TABLE_NAME;
 import static com.krinotech.inventoryapp.InventoryContract.OPEN_PAREN;
 import static com.krinotech.inventoryapp.InventoryContract.TEXT;
 import static com.krinotech.inventoryapp.InventoryContract.TEXT_NOT_NULL;
@@ -48,4 +50,57 @@ public class InventorySQLiteOpenHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) { }
+
+    public int updateQuantity(SQLiteDatabase writeableDb, int quantity, long id) {
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(QUANTITY, quantity);
+        String selection = _ID + " = ?";
+        String[] whereClause = {String.valueOf(id)};
+        try {
+            return writeableDb.update(TABLE_NAME, contentValues, selection, whereClause);
+        }
+        finally {
+            writeableDb.close();
+        }
+    }
+
+    public int delete(SQLiteDatabase writeableDb, long id) {
+        String selection = _ID + " = ?";
+        String[] whereClause = {String.valueOf(id)};
+        try {
+            return writeableDb.delete(TABLE_NAME, selection, whereClause);
+        }
+        finally {
+            writeableDb.close();
+        }
+    }
+
+    public long insert(SQLiteDatabase writeableDb,
+                       String productName,
+                       double price,
+                       int quantity,
+                       String supplierName,
+                       String supplierContact) {
+        try {
+            ContentValues contentValues = new ContentValues();
+            contentValues.put(PRODUCT_NAME, productName);
+            contentValues.put(PRICE, price);
+            contentValues.put(QUANTITY, quantity);
+            contentValues.put(SUPPLIER_NAME, supplierName);
+            contentValues.put(SUPPLIER_PHONE_NUMBER, supplierContact);
+            return writeableDb.insert(TABLE_NAME, null, contentValues);
+        }
+        finally {
+            writeableDb.close();
+        }
+    }
+
+    public int deleteAll(SQLiteDatabase writeableDb) {
+        try {
+            return writeableDb.delete(TABLE_NAME, "1", null);
+        }
+        finally {
+            writeableDb.close();
+        }
+    }
 }

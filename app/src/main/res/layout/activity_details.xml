@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="inventory"
+            type="com.krinotech.inventoryapp.Inventory" />
+    </data>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            tools:context=".DetailsActivity"
+            >
+
+            <include
+                layout="@layout/labels"
+                />
+
+            <TextView
+                android:id="@+id/et_productName"
+                android:textColor="@color/white"
+                android:layout_marginTop="@dimen/productNameMarginTopDetails"
+                android:text="@{inventory.productName}"
+                app:layout_constraintBottom_toTopOf="@+id/et_price"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_weight="7"
+                app:layout_constraintStart_toEndOf="@id/tv_productNameLabel"
+                app:layout_constraintTop_toTopOf="parent"
+                style="@style/edit_text"
+                tools:text="@string/product_name" />
+
+            <TextView
+                android:id="@+id/et_price"
+                android:textColor="@color/white"
+                android:text="@{inventory.priceFormatted}"
+                app:layout_constraintTop_toBottomOf="@id/et_productName"
+                app:layout_constraintStart_toEndOf="@id/tv_priceLabel"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/et_quantity"
+                app:layout_constraintHorizontal_weight="7"
+                style="@style/edit_text"
+                tools:text="$3.50"
+                />
+
+            <TextView
+                android:id="@+id/et_quantity"
+                android:textColor="@color/white"
+                android:text="@{inventory.quantityFormatted}"
+                app:layout_constraintTop_toBottomOf="@id/et_price"
+                app:layout_constraintStart_toEndOf="@id/tv_quantityLabel"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/et_supplierName"
+                app:layout_constraintHorizontal_weight="7"
+                style="@style/edit_text"
+                tools:text="10"
+                />
+
+            <TextView
+                android:id="@+id/et_supplierName"
+                android:textColor="@color/white"
+                android:text="@{inventory.supplierName}"
+                android:layout_marginBottom="@dimen/supplierNameMargin"
+                app:layout_constraintBottom_toTopOf="@+id/et_supplierPhoneNumber"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_weight="7"
+                app:layout_constraintStart_toEndOf="@id/tv_supplierNameLabel"
+                app:layout_constraintTop_toBottomOf="@id/et_quantity"
+                app:layout_constraintVertical_bias="0.47000003"
+                style="@style/edit_text"
+                tools:text="Amazon"
+                />
+
+            <TextView
+                android:id="@+id/et_supplierPhoneNumber"
+                android:textColor="@color/white"
+                android:layout_marginTop="@dimen/supplierContactMargin"
+                android:text="@{inventory.supplierPhoneNumber}"
+                app:layout_constraintHorizontal_weight="7"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tv_supplierPhoneNumberLabel"
+                app:layout_constraintTop_toBottomOf="@id/et_supplierName"
+                style="@style/edit_text"
+                tools:text="(718) 777-7777"
+                />
+
+            <View
+                android:id="@+id/divider"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginTop="@dimen/dividerMargin"
+                android:layout_marginBottom="@dimen/dividerMargin"
+                android:background="@color/colorAccent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/et_supplierPhoneNumber"
+                />
+
+            <Button
+                android:id="@+id/increase_quantity"
+                android:text="@string/increase"
+                app:layout_constraintBottom_toTopOf="@id/call"
+                app:layout_constraintEnd_toStartOf="@id/decrease_quantity"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/divider"
+                style="@style/button"
+                />
+
+            <Button
+                android:id="@+id/decrease_quantity"
+                style="@style/button"
+                android:text="@string/decrease"
+                app:layout_constraintBottom_toTopOf="@id/call"
+                app:layout_constraintEnd_toStartOf="@id/delete"
+                app:layout_constraintStart_toEndOf="@id/increase_quantity"
+                app:layout_constraintTop_toBottomOf="@id/divider"
+                app:layout_constraintVertical_bias="0.49" />
+
+            <Button
+                android:id="@+id/delete"
+                android:text="@string/delete"
+                style="@style/button"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/decrease_quantity"
+                app:layout_constraintTop_toBottomOf="@id/divider"
+                app:layout_constraintBottom_toTopOf="@id/call"
+                />
+
+            <Button
+                android:id="@+id/call"
+                android:padding="@dimen/call_padding"
+                android:background="@drawable/baseline_call_white_48"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                style="@style/button"
+                />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</layout>
