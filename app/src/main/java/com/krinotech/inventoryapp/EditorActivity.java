@@ -44,7 +44,6 @@ public class EditorActivity extends AppCompatActivity {
             bindData(productName, priceS, quantityS, supplierName, supplierPhoneNumber);
         }
 
-
         setTitle(getString(R.string.editor_activity_title));
     }
 
